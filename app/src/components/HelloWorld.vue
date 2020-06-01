@@ -9,9 +9,6 @@
           height="200"
         />
       </v-col>
-      <v-col cols="12" class="text-center">
-        <router-link to="/about"> About</router-link>
-      </v-col>
     </v-row>
   </v-container>
 </template>
