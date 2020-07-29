@@ -1,8 +1,5 @@
 <template>
   <v-row class="about">
-    <v-col>
-      <h1>This is an about page</h1>
-    </v-col>
     <v-col cols="12" class="text-center">
       <router-link to="/"> Home</router-link>
     </v-col>
@@ -16,10 +13,10 @@
         v-model="clanName"
       />
       <v-btn
-        class="mt-6" @click="getClan"
+        class="mt-6" @click="generateTags"
         :disabled="clanName === '' || clanName.length > 25 || clanName.length < 2"
         color="success"
-      > Get clans</v-btn>
+      > Generate tags</v-btn>
     </v-col>
     <v-col cols="12" class="text-center">
       {{clansByTag}}
@@ -45,7 +42,7 @@
   </v-row>
 </template>
 <script>
-import PostService from '@/services/PostService'
+import clans from '@/api/clans'
 import { mapGetters } from 'vuex'
 import { GET_CLAN_BY_TAG } from '@/store/actions-types'
 import { CLEAN_CLANS_BY_TAG } from '@/store/mutations-types'
@@ -58,17 +55,19 @@ export default {
       clanName: '',
       data: null,
       selectedPost: {},
-      regex: /^[a-zа-я0-9_(\s)]$/,
+      regexClanName: /^[a-zA-Z0-9_\s\-]+$/,
+      regexTagName: /^[A-Z0-9_\-]+$/,
       tagRules: [
         v => !!v || 'Required.',
         v => v.length < 6 || 'Тег должен сосотять из 5 символов.',
-        v => v.length > 4 || 'Тег должен сосотять из 5 символов.'
+        v => v.length > 4 || 'Тег должен сосотять из 5 символов.',
+        v => this.regexTagName.test(v) || 'Используйте только заглавные буквы латинского алфавита, дефис, знак нижнего подчеркивания и цифры.'
       ],
       clanNameRules: [
         v => !!v || 'Required.',
         v => v.length < 26 || 'Название должно не длиннее 25 символов.',
         v => v.length > 1 || 'Название должно быть не короче 2 символов.',
-        v => this.regex.test(v) || 'Используйте строчные и заглавные буквы латинского и кириллического алфавита, пробелы, цифры, дефис и символ подчеркивания.'
+        v => this.regexClanName.test(v) || 'Используйте строчные и заглавные буквы латинского алфавита, пробелы, цифры, дефис и символ подчеркивания.'
         // Запретим пользователю использовать в своем имени любые символы, кроме букв русского и латинского алфавита, знака "_" (подчерк), пробела и цифр:
         // /[^(\w)|(\x7F-\xFF)|(\s)]/
         // Состоит ли строка только из букв, цифр и "_", длиной от 8 до 20 символов:
@@ -93,17 +92,22 @@ export default {
 Полные и сокращенные названия (теги) кланов уникальны, без учета регистра. */
 
   methods: {
-    async getPosts () {
-      const response = await PostService.fetchPosts()
-      this.posts = response.data
-    },
     async getClan () {
       // const response = await PostService.getPost(this.selectedTag)
+      this.$store.commit(CLEAN_CLANS_BY_TAG)
       this.$store.dispatch(GET_CLAN_BY_TAG, this.selectedTag)
       // this.selectedPost = response.data
     },
+    async generateTags () {
+      const cleanedClanName = this.clanName.replace(/\s/g, '').toUpperCase()
+      // this.$store.commit(CLEAN_CLANS_BY_TAG)
+      // this.$store.dispatch(GET_CLAN_BY_TAG, this.clanName)
+      // this.selectedPost = response.data
+      this.clanName = ''
+    },
+
     async addPost () {
-      await PostService.addPost(this.selectedTag)
+      await clans.addPost(this.selectedTag)
       this.selectedTag = ''
     },
     openEditForm (postId) {

@@ -1,4 +1,4 @@
-import Clans from '@/store/modules/Clans'
+import Clans from './Clans'
 
 export default {
   Clans

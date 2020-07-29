@@ -21,16 +21,16 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-list dense>
-        <v-list-item @click="logout">
-          <v-list-item-icon>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="logout-button">logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+<!--      <v-list dense>-->
+<!--        <v-list-item @click="logout">-->
+<!--          <v-list-item-icon>-->
+<!--            <v-icon>exit_to_app</v-icon>-->
+<!--          </v-list-item-icon>-->
+<!--          <v-list-item-content>-->
+<!--            <v-list-item-title class="logout-button">logout</v-list-item-title>-->
+<!--          </v-list-item-content>-->
+<!--        </v-list-item>-->
+<!--      </v-list>-->
       <v-list class="mt-2 version">
         <v-list-item to="/version">
           <v-list-item-content>
@@ -49,7 +49,7 @@
       <v-app-bar-nav-icon
         @click.native="drawer = !drawer"/>
       <span class="title ml-3 mr-5 white--text">
-        ddlldl
+        {{ $t(`routes.${this.$route.name}`) }}
       </span>
       <v-spacer/>
 <!--      <v-col class="mr-3 mt-6" cols="1">-->
@@ -104,9 +104,8 @@ export default {
   computed: {
     links () {
       return [
-        { title: 'Главная', icon: 'contact_phone', url: '/' },
-        { title: 'Клан тег', icon: 'person', url: '/create-tag' },
-        { title: '66', icon: 'call', url: '/control' }
+        { title: this.$t('routes.Home'), icon: 'contact_phone', url: '/' },
+        { title: this.$t('routes.Clans'), icon: 'person', url: '/clans' }
       ]
     }
   },

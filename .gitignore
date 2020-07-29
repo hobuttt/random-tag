@@ -1,11 +1,15 @@
 .DS_Store
 node_modules
 server/node_modules
+server/config
 app/node_modules
 app/dist
 
 app/tests/e2e/videos/
 app/tests/e2e/screenshots/
+
+# env files
+.env
 
 # local env files
 .env.local

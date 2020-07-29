@@ -4,11 +4,13 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import './api'
+import i18n from './plugins/i18n'
 import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
 new Vue({
+  i18n,
   router,
   store,
   vuetify,

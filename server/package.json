@@ -6,17 +6,18 @@
   "author": "hobuttt",
   "license": "MIT",
   "private": true,
+  "envFile": "src/.env.development.local",
   "scripts": {
-    "start": "nodemon --ext js --watch src"
+    "start": "nodemon -r dotenv/config --ext js --watch src"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongodb": "^3.5.7",
-    "morgan": "^1.10.0"
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.17"
   }
 }

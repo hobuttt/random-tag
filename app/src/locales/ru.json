@@ -1,0 +1,34 @@
+{
+  "search": {
+    "clanName": "Поиск по названию/тегу",
+    "changeLanguage": "Выбрать язык"
+  },
+  "routes": {
+    "Home": "Главная",
+    "Clans": "Кланы",
+    "ClanDetail": "Информация по клану"
+  },
+  "reusable": {
+    "back": "Назад",
+    "clans": "Кланы",
+    "createdAt": "Дата создания",
+    "id": "ID",
+    "members": "Участников",
+    "more": "Подробнее",
+    "tag": "Тег",
+    "title": "Название",
+    "description": "Описание",
+    "noData": "Данных пока нет"
+  },
+  "clans": {
+    "clanInfo": "Информация по клану",
+    "clanMembers": "Участники клана",
+    "creatorName": "Имя основателя",
+    "leaderName": "Имя главы клана",
+    "motto": "Девиз"
+  },
+  "languages": {
+    "ru": "Русский",
+    "eng": "Английский"
+  }
+}
