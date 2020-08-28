@@ -1,5 +1,5 @@
 import i18n from '../plugins/i18n'
-import { getTimeFromTimestamp } from '../utils/dateTimeHelper.js'
+import { getTimeFromTimestamp } from '@/utils/dateTimeHelper'
 
 export class ClanModel {
   constructor (clan) {

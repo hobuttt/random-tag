@@ -13,9 +13,9 @@ import {
   SET_MEMBERS
 } from '../mutations-types'
 import api from '../../api/clans'
-import { ClanModel } from '../../models/ClanModel'
-import { ClanInfoModel } from '../../models/ClanInfoModel'
-import { ClanMembersModel } from '../../models/ClanMembersModel'
+import { ClanModel } from '@/models/ClanModel'
+import { ClanInfoModel } from '@/models/ClanInfoModel'
+import { ClanMembersModel } from '@/models/ClanMembersModel'
 
 const state = {
   clansByTag: [],
@@ -75,11 +75,14 @@ const actions = {
     }
   },
   async [GET_MEMBERS] ({ commit }, accountIds) {
+    const result = []
     try {
       const { data } = await api.getClanMembers(accountIds)
-
-      commit(SET_MEMBERS, data)
-      console.log(data)
+      const members = Object.values(data)
+      members.forEach(member =>
+        result.push(new ClanMembersModel(member))
+      )
+      commit(SET_MEMBERS, result)
     } catch (error) {
       console.log(error)
     }
@@ -90,7 +93,7 @@ const getters = {
   getClan: state => state.clanById,
   getClansTotal: state => state.clansTotal,
   getClansByTag: state => state.clansByTag,
-  getClanMembers: state => state.clansByTag
+  getClanMembers: state => state.members
 }
 
 export default {

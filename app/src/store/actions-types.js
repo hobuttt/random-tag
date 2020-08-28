@@ -7,3 +7,8 @@ export const GET_CLAN_INFO = 'GET_CLAN_INFO'
 // Members
 
 export const GET_MEMBERS = 'GET_MEMBERS'
+export const GET_MEMBER_INFO = 'GET_MEMBER_INFO'
+
+// Vehicles
+
+export const GET_VEHICLES_INFO = 'GET_VEHICLES_INFO'

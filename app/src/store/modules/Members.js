@@ -1,32 +1,34 @@
-import { GET_MEMBERS } from '../actions-types'
-import { SET_MEMBERS } from '../mutations-types'
-import api from '../../api/clans'
-import { ClanModel } from '../../models/ClanModel'
+import { GET_MEMBER_INFO } from '@/store/actions-types'
+import { SET_MEMBER_INFO } from '@/store/mutations-types'
+import api from '@/api/members'
+import { MemberTanksInfoModel } from '@/models/MemberTanksInfoModel'
 
 const state = {
-  members: []
+  memberInfo: []
 }
 const mutations = {
-  [SET_MEMBERS] (state, members) {
-    state.members = members
+  [SET_MEMBER_INFO] (state, memberInfo) {
+    state.memberInfo = memberInfo
   }
 }
 const actions = {
-  async [GET_MEMBERS] ({ commit }, payload) {
+  async [GET_MEMBER_INFO] ({ commit }, memberId) {
+    const result = []
     try {
-      const result = []
-      const { data, } = await api.getMembers(payload)
-      data.forEach(clan =>
-        result.push(new ClanModel(clan))
+      const { data } = await api.getMemberInfo(memberId)
+      data[memberId].forEach(memberInfo =>
+        result.push(new MemberTanksInfoModel(memberInfo, memberInfo.all))
       )
-      commit(SET_MEMBERS, result)
+      commit(SET_MEMBER_INFO, result)
+      return result
     } catch (error) {
       console.log(error)
     }
   }
 }
+
 const getters = {
-  getClans: state => state.clans,
+  getMemberInfo: state => state.memberInfo
 
 }
 

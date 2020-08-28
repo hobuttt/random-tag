@@ -41,9 +41,17 @@
           <td class="col-width pt-2" >{{ clan.description }}</td>
         </tr>
         <tr >
-          <td class="col-width">{{ $t('reusable.description') }}</td>
-          <td class="col-width" >
-            <v-autocomplete :items="members"/>
+          <td class="col-width pt-4">{{ $t('clans.clanMembers') }}</td>
+          <td class="col-width pt-4" >
+            <v-autocomplete
+              :items="members"
+              :label="$t('clans.clanMember')"
+              @change="getMemberInfo"
+              :no-data-text="$t('reusable.noData')"
+              v-model="selectedMemberId"
+              item-text="name"
+              item-value="id"
+            />
           </td>
         </tr>
 
@@ -54,20 +62,41 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { GET_MEMBERS } from '../../store/actions-types'
+import {
+  GET_MEMBER_INFO,
+  GET_MEMBERS,
+  GET_VEHICLES_INFO
+} from '@/store/actions-types'
 
 export default {
   name: 'ClanInfo',
   props: ['id'],
+  data: () => ({
+    selectedMemberId: ''
+  }),
   computed: {
     ...mapGetters({
       clan: 'getClan',
       members: 'getClanMembers'
     })
   },
+  methods: {
+    getMemberInfo () {
+      this.$store.dispatch(GET_MEMBER_INFO, this.selectedMemberId).then(tanks => {
+        const tanksIds = tanks.map(tank => tank.tankId).join()
+        this.$store.dispatch(GET_VEHICLES_INFO, tanksIds)
+      })
+    }
+  },
   watch: {
     clan () {
       this.$store.dispatch(GET_MEMBERS, this.clan.membersIds.join())
+    },
+    members () {
+      if (this.members.length) {
+        this.selectedMemberId = this.members[0].id
+        this.getMemberInfo()
+      }
     }
   }
 }
