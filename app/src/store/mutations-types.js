@@ -9,3 +9,8 @@ export const CLEAN_CLANS_BY_TAG = 'CLEAN_CLANS_BY_TAG'
 // Members
 
 export const SET_MEMBERS = 'SET_MEMBERS'
+export const SET_MEMBER_INFO = 'SET_MEMBER_INFO'
+
+// Vehicles
+
+export const SET_VEHICLES_INFO = 'SET_VEHICLES_INFO'

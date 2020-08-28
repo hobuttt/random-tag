@@ -23,6 +23,7 @@
   "clans": {
     "clanInfo": "Информация по клану",
     "clanMembers": "Участники клана",
+    "clanMember": "Участник клана",
     "creatorName": "Имя основателя",
     "leaderName": "Имя главы клана",
     "motto": "Девиз"
